@@ -2,7 +2,7 @@ import sys
 import os
 import sox
 
-# Store all command line args in genre_dirs
+# Store the directory where all the audio files are saved
 genre_dirs = ['/home/dhruvesh/Desktop/dsp-final/genres/blues','/home/dhruvesh/Desktop/dsp-final/genres/classical','/home/dhruvesh/Desktop/dsp-final/genres/country',
 '/home/dhruvesh/Desktop/dsp-final/genres/disco','/home/dhruvesh/Desktop/dsp-final/genres/hiphop','/home/dhruvesh/Desktop/dsp-final/genres/jazz','/home/dhruvesh/Desktop/dsp-final/genres/metal',
 '/home/dhruvesh/Desktop/dsp-final/genres/pop','/home/dhruvesh/Desktop/dsp-final/genres/reggae','/home/dhruvesh/Desktop/dsp-final/genres/rock'
