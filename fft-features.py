@@ -18,22 +18,16 @@ def create_fft(wavfile):
 
 
 def main():
-	#train_dirs = sys.argv[1:]
+	
 	for label, genre in enumerate(GENRE_LIST):
 		for fn in glob.glob(os.path.join(GENRE_DIR, genre)):
 			for wavfile in os.listdir(fn):
 					if wavfile.endswith("wav"):
 						create_fft(os.path.join(GENRE_DIR, genre,wavfile))
-				#print(wavfile)
+				
 				
 
-	# for train_dir in train_dirs:
-	# 	os.chdir(train_dir)
-	# 	for wavfile in os.listdir(train_dir):
-	# 		# print(wavfile)
-	# 		create_fft(wavfile)
-		# os.system("rm *.wav")
-		# os.system("ls")
+	
 
 
 if __name__ == "__main__":

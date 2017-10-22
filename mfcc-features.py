@@ -17,13 +17,12 @@ def create_ceps(wavfile):
 	mspec : ndarray of log-spectrum in the mel-domain
 	spec  : spectrum magnitude
 	"""
-	#song_array[song_array==0]=1
 	ceps=mfcc(song_array)
 	#ceps, mspec, spec= mfcc(song_array)
 	print(ceps.shape)
+	#this is done in order to replace NaN and infinite value in array
 	bad_indices = np.where(np.isnan(ceps))
 	b=np.where(np.isinf(ceps))
-
 	ceps[bad_indices]=0
 	ceps[b]=0
 	write_ceps(ceps, wavfile)
