@@ -49,7 +49,7 @@ The dataset used for training the model is the GTZAN dataset. A brief of the dat
 
 6. Run learn.py according to run instruction provided in the code file.
 
-7. Run tester.py with a audio file to predict the genre 
+7. Run tester.py with an audio file to predict the genre 
 
 **Please note-** I have not provided the audio files used by me in the repo. So please replace the directory address wherever necessary in the code with your own local address.
 Also while running the tester.py please make sure that the audio file you use is of .wav format sampled at 22050Hz and mono.
