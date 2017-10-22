@@ -31,10 +31,6 @@ def read_fft(genre_list, base_dir):
 			X.append(fft_features)
 			y.append(label)
 	
-	# print(X)
-	# print(y)
-	
-
 	return np.array(X), np.array(y)
 
 
@@ -57,48 +53,28 @@ def read_ceps(genre_list, base_dir):
 	print(len(y))
 	return np.array(X), np.array(y)
 
-#X_new=np.zeros(shape=(750,1290))
 def learn_and_classify(X_train, y_train, X_test, y_test, genre_list):
 
-	#print("X_train = " + str(X_train.shape), "y_train = " + str(y_train.shape), "X_test = " + str(len(X_test)), "y_test = " + str(len(y_test)))
 	
 	print(len(X_train))
 	print(len(X_train[0]))
-	# for i in range(750):
-	# 	for j in range(1290):
-	# 		X_new[i][j]=X_train[i][j]
 
-	# print(X_new)
-	#X_train.reshape(750,30000)
+	#Logistic Regression classifier
+
 	logistic_classifier = linear_model.logistic.LogisticRegression()
-
-	# bad_indices = np.where(np.isnan(X_train))
-	# b=np.where(np.isinf(X_train))
-	# bad_indices1 = np.where(np.isnan(y_train))
-	# b1=np.where(np.isinf(y_train))
-
-	# X_train[bad_indices]=--0.002280976
-	# X_train[b]=-0.002280976
-
-	# y_train[bad_indices1]=1
-	# y_train[b1]=1
-
-
 	logistic_classifier.fit(X_train, y_train)
 	logistic_predictions = logistic_classifier.predict(X_test)
-	# bad_indices2 = np.where(np.isnan(X_test))
-	# b2=np.where(np.isinf(X_test))
-	# X_test[bad_indices2]=-1
-	# X_test[b2]=0
-
-	
 	logistic_accuracy = accuracy_score(y_test, logistic_predictions)
 	logistic_cm = confusion_matrix(y_test, logistic_predictions)
 	print("logistic accuracy = " + str(logistic_accuracy))
 	print("logistic_cm:")
 	print(logistic_cm)
 
+	#change the pickle file when using another classifier eg model_mfcc_fft
+
 	joblib.dump(logistic_classifier, 'saved_models/model_mfcc_log.pkl')
+
+	#K-Nearest neighbour classifier
 
 	knn_classifier = KNeighborsClassifier()
 	knn_classifier.fit(X_train, y_train)
@@ -128,9 +104,8 @@ def plot_confusion_matrix(cm, title, genre_list, cmap=plt.cm.Blues):
 
 
 def main():
-	# first command line argument is the base folder that consists of the fft files for each genre
+	
 	base_dir_fft  = GENRE_DIR
-	# second command line argument is the base folder that consists of the mfcc files for each genre
 	base_dir_mfcc = GENRE_DIR
 	
 	"""list of genres (these must be folder names consisting .wav of respective genre in the base_dir)
@@ -143,26 +118,14 @@ def main():
 	#use FFT
 	# X, y = read_fft(genre_list, base_dir_fft)
 	# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .20)
-	# #print("new2",X_train.shape)
-
-	# # # print("X_train = " + str(len(X_train)), "y_train = " + str(len(y_train)), "X_test = " + str(len(X_test)), "y_test = " + str(len(y_test)))
-	
 	# print('\n******USING FFT******')
 	# learn_and_classify(X_train, y_train, X_test, y_test, genre_list)
 	# print('*********************\n')
 
 	#use MFCC
 	X,y= read_ceps(genre_list, base_dir_mfcc)
-	
-	# np.nan_to_num(X_train)
-	# np.nan_to_num(X_test)
-	# np.nan_to_num(y_train)
-	# np.nan_to_num(y_test)
-	# print("new",len(X))
-	# print(len(y))
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .20)
 	print("new1",X_train.shape)
-	#print(len(y))
 	print('******USING MFCC******')
 	learn_and_classify(X_train, y_train, X_test, y_test, genre_list)
 	print('*********************')
